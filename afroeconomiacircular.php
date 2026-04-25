@@ -7,7 +7,7 @@ Author: Yavasoft
 */
 
 if (!defined('ABSPATH')) {
-    exit; // Seguridad
+    exit; // Segurida
 }
 
 // Definir constantes

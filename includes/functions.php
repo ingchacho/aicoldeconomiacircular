@@ -34,3 +34,10 @@ function aec_get_registro_id() {
 
     return $_SESSION['aec_id'];
 }
+
+function aec_dashboard() {
+    ob_start();
+    include AEC_PATH . 'templates/dashboard.php';
+    return ob_get_clean();
+}
+add_shortcode('afro_dashboard', 'aec_dashboard');

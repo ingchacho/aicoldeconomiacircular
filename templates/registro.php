@@ -1,4 +1,11 @@
+
+
 <?php
+if (isset($_GET['edit'])) {
+    $aec_id = intval($_GET['edit']);
+    $_SESSION['aec_id'] = $aec_id;
+}
+
 if (!session_id()) session_start();
 
 global $wpdb;
@@ -131,6 +138,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="aec-container">
+
+
+    <?php
+    $porcentaje = ($paso / 5) * 100;
+    ?>
+
+    <div class="aec-progress">
+        <div class="aec-bar" style="width: <?= $porcentaje ?>%"></div>
+    </div>
+
+    <p>Paso <?= $paso ?> de 5</p>
 
 <!-- ===================== -->
 <!-- PASO 1 -->

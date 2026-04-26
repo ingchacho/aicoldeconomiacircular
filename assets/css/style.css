@@ -1,3 +1,7 @@
+.aec-modal {
+    z-index: 999999 !important;
+}
+
 .aec-container {
     max-width: 600px;
     margin: auto;
@@ -18,4 +22,55 @@
     padding: 10px;
     border: none;
     cursor: pointer;
+}
+
+.aec-modal {
+    display: none;
+    position: fixed;
+    /* 🔥 CLAVE */
+    z-index: 9999;
+    /* 🔥 CLAVE */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.6);
+
+    /* 🔥 CENTRAR CONTENIDO */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aec-modal-content {
+    background: #fff;
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 8px;
+
+    /* 🔥 SCROLL INTERNO */
+    max-height: 90vh;
+    overflow-y: auto;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.aec-progress {
+    width: 100%;
+    background: #ddd;
+    height: 10px;
+    margin-bottom: 10px;
+}
+
+.aec-bar {
+    height: 10px;
+    background: #2E7D32;
 }

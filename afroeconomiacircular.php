@@ -24,3 +24,6 @@ function aec_enqueue_assets() {
     wp_enqueue_script('aec-script', AEC_URL . 'assets/js/app.js', array(), false, true);
 }
 add_action('wp_enqueue_scripts', 'aec_enqueue_assets');
+
+// Hook al activar plugin
+register_activation_hook(__FILE__, 'aec_crear_tabla');

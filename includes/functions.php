@@ -12,3 +12,13 @@ function aec_mostrar_micrositio() {
 }
 
 add_shortcode('afro_micrositio', 'aec_mostrar_micrositio');
+
+
+function aec_formulario_registro() {
+    ob_start();
+    include AEC_PATH . 'templates/registro.php';
+    return ob_get_clean();
+}
+
+add_shortcode('afro_registro', 'aec_formulario_registro');
+

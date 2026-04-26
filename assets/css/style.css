@@ -1,0 +1,21 @@
+.aec-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.aec-container input,
+.aec-container select,
+.aec-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.aec-container button {
+    background: #2E7D32;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}

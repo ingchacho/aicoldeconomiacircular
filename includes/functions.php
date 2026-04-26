@@ -22,3 +22,15 @@ function aec_formulario_registro() {
 
 add_shortcode('afro_registro', 'aec_formulario_registro');
 
+// Obtiene ID de registro guardado en sesión
+function aec_get_registro_id() {
+    if (!session_id()) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['aec_id'])) {
+        return null;
+    }
+
+    return $_SESSION['aec_id'];
+}

@@ -36,7 +36,7 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
                 <td><?= $row->nombre ?></td>
                 <td><?= $row->municipio ?></td>
                 <td>
-                    <a href="?edit=<?= $row->id ?>">Editar</a> |
+                    <a href="?edit=<?= $row->id ?>&paso=1" class="aec-btn">Editar</a>
                     <a href="?delete=<?= $row->id ?>" onclick="return confirm('¿Eliminar?')">Eliminar</a>
                 </td>
             </tr>
@@ -56,23 +56,22 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
     </div>
 </div>
 
-
-<!-- <script>
-    function abrirModal(id = 0) {
-        // Puedes cargar el formulario en un iframe o usar AJAX
-        document.getElementById('modalForm').style.display = 'block';
-    }
-    function cerrarModal() {
-        document.getElementById('modalForm').style.display = 'none';
-    }
-</script> -->
+<?php if (isset($_GET['edit'])): ?>
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        abrirModal();
+    });
+    </script>
+<?php endif; ?>
 
 <script>
     function abrirModal(){
-        document.getElementById("modalForm").style.display = "flex";
+        document.getElementById("modalForm").classList.add("active");
     }
 
     function cerrarModal(){
-        document.getElementById("modalForm").style.display = "none";
+        document.getElementById("modalForm").classList.remove("active");
     }
 </script>
+
+<script>

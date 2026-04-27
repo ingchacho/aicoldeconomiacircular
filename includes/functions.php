@@ -40,4 +40,15 @@ function aec_dashboard() {
     include AEC_PATH . 'templates/dashboard.php';
     return ob_get_clean();
 }
+
 add_shortcode('afro_dashboard', 'aec_dashboard');
+
+function aec_landing_page_shortcode() {
+    ob_start();
+
+    include AEC_PATH . 'templates/landing.php';
+
+    return ob_get_clean();
+}
+
+add_shortcode('aec_landing', 'aec_landing_page_shortcode');

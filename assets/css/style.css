@@ -106,7 +106,8 @@ table tr:hover {
    MODAL (FIX DEFINITIVO)
 ========================= */
 .aec-modal {
-    display: none;
+    display: none !important;
+    /* 🔥 FORZAR OCULTO */
     position: fixed !important;
     z-index: 999999;
     top: 0;
@@ -118,7 +119,7 @@ table tr:hover {
 
 /* CUANDO SE ACTIVA */
 .aec-modal.active {
-    display: block;
+    display: block !important;
 }
 
 /* CONTENIDO CENTRADO REAL */
@@ -212,4 +213,18 @@ table tr:hover {
 body,
 html {
     overflow: visible !important;
+}
+
+.kpi-box {
+    background: #1B5E20;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    margin-bottom: 40px;
 }

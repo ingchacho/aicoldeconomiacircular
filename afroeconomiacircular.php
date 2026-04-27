@@ -27,3 +27,16 @@ add_action('wp_enqueue_scripts', 'aec_enqueue_assets');
 
 // Hook al activar plugin
 register_activation_hook(__FILE__, 'aec_crear_tabla');
+
+
+
+add_shortcode('aec_kpi', function() {
+    ob_start();
+    include AEC_PATH . 'templates/kpi.php';
+    return ob_get_clean();
+});
+
+function aec_cargar_chartjs() {
+    wp_enqueue_script('chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', [], null, true);
+}
+add_action('wp_enqueue_scripts', 'aec_cargar_chartjs');

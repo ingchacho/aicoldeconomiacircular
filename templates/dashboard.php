@@ -16,9 +16,7 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
 <div class="aec-container">
 
     <h2>Organizaciones Registradas</h2>
-
-    <button onclick="abrirModal()">+ Agregar</button>
-
+    <button onclick="nuevoRegistro()">+ Agregar</button>
     <table border="1" width="100%">
         <thead>
             <tr>
@@ -70,8 +68,42 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
     }
 
     function cerrarModal(){
-        document.getElementById("modalForm").classList.remove("active");
-    }
-</script>
+    // Cerrar modal
+    document.getElementById("modalForm").classList.remove("active");
 
-<script>
+    // 🔥 Limpiar URL (quitar edit y paso)
+    const url = new URL(window.location.href);
+
+    url.searchParams.delete('edit');
+    url.searchParams.delete('paso');
+
+    // 🔥 Actualiza la URL sin recargar
+    window.history.replaceState({}, document.title, url.pathname);
+    }
+
+    function nuevoRegistro(){
+
+        const url = new URL(window.location.href);
+
+        // 🔥 eliminar parámetros
+        url.searchParams.delete('edit');
+        url.searchParams.delete('paso');
+
+        // 🔥 actualizar URL sin recargar
+        window.history.replaceState({}, document.title, url.pathname);
+
+        // 🔥 limpiar TODOS los inputs manualmente
+        document.querySelectorAll('#modalForm input, #modalForm textarea, #modalForm select')
+        .forEach(el => {
+            if (el.type === 'checkbox' || el.type === 'radio') {
+                el.checked = false;
+            } else {
+                el.value = '';
+            }
+        });
+
+        // 🔥 abrir modal limpio
+        abrirModal();
+    }
+
+</script>

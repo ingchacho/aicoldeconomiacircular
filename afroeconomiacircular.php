@@ -40,3 +40,16 @@ function aec_cargar_chartjs() {
     wp_enqueue_script('chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', [], null, true);
 }
 add_action('wp_enqueue_scripts', 'aec_cargar_chartjs');
+
+// function aec_kpi_page_assets() {
+
+//     if (is_page('kpi')) {
+//         wp_dequeue_style('wp-block-library');
+//         wp_dequeue_style('global-styles');
+//         wp_dequeue_style('astra-theme-css');
+//         wp_dequeue_style('hello-elementor');
+//         wp_enqueue_style('aec-style', AEC_URL . 'assets/css/style.css');
+//     }
+
+// }
+// add_action('wp_enqueue_scripts', 'aec_kpi_page_assets', 100);

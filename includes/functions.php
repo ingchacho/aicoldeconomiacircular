@@ -35,22 +35,55 @@ function aec_get_registro_id() {
     return $_SESSION['aec_id'];
 }
 
+
+
+// function aec_dashboard() {
+//     ob_start();
+//     include AEC_PATH . 'templates/dashboard.php';
+//     return ob_get_clean();
+// }
+
+// add_shortcode('afro_dashboard', 'aec_dashboard');
+
+
 function aec_dashboard() {
     ob_start();
     include AEC_PATH . 'templates/dashboard.php';
-    return ob_get_clean();
-}
+    $contenido = ob_get_clean();
 
+    return aec_render_layout($contenido, "Dashboard");
+}
 add_shortcode('afro_dashboard', 'aec_dashboard');
+
+
+function aec_kpi() {
+    ob_start();
+    include AEC_PATH . 'templates/kpi.php';
+    $contenido = ob_get_clean();
+
+    return aec_render_layout($contenido, "KPI");
+}
+add_shortcode('afro_kpi', 'aec_kpi');
+
+
+// function aec_landing_page_shortcode() {
+//     ob_start();
+
+//     include AEC_PATH . 'templates/landing.php';
+
+//     return ob_get_clean();
+// }
+
+// add_shortcode('aec_landing', 'aec_landing_page_shortcode');
+
 
 function aec_landing_page_shortcode() {
     ob_start();
-
     include AEC_PATH . 'templates/landing.php';
+    $contenido = ob_get_clean();
 
-    return ob_get_clean();
+    return aec_render_layout($contenido, "Inicio");
 }
-
 add_shortcode('aec_landing', 'aec_landing_page_shortcode');
 
 
@@ -148,3 +181,19 @@ function aec_exportar_excel(){
 
     exit;
 }
+
+function aec_render_layout($contenido, $titulo = "AICOLD") {
+
+    ob_start();
+    include AEC_PATH . 'templates/layout.php';
+    return ob_get_clean();
+}
+
+
+
+function aec_kpi_shortcode() {
+    ob_start();
+    include AEC_PATH . 'templates/kpi.php';
+    return ob_get_clean();
+}
+add_shortcode('aec_kpi', 'aec_kpi_shortcode');

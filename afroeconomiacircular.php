@@ -41,6 +41,26 @@ function aec_cargar_chartjs() {
 }
 add_action('wp_enqueue_scripts', 'aec_cargar_chartjs');
 
+
+add_filter('template_include', function($template){
+
+    // 🔥 RUTAS DEL SISTEMA
+    if (is_page('kpi')) {
+        return AEC_PATH . 'templates/page-kpi.php';
+    }
+
+    if (is_page('dashboard')) {
+        return AEC_PATH . 'templates/page-dashboard.php';
+    }
+
+    if (is_page('login')) {
+        return AEC_PATH . 'templates/page-login.php';
+    }
+
+    return $template;
+});
+
+
 // function aec_kpi_page_assets() {
 
 //     if (is_page('kpi')) {

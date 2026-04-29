@@ -138,6 +138,10 @@ foreach ($estado as $row) {
 
 <div class="aec-container">
 
+    <div id="aec-loader" class="aec-loader">
+        <div class="spinner"></div>
+    </div>
+
     <h2>Dashboard de Indicadores</h2>
 
     <form method="GET" class="aec-filtros">
@@ -175,7 +179,7 @@ foreach ($estado as $row) {
         ?>
     </select>
 
-    <button type="submit">Filtrar</button>
+    <!-- <button type="submit">Filtrar</button> -->
 
 </form>
 
@@ -203,29 +207,31 @@ foreach ($estado as $row) {
 
     <div class="chart-grid">
 
-    <div class="chart-box">
-        <h3>Organizaciones por Municipio</h3>
-        <canvas id="graficoMunicipio"></canvas>
+        <div class="chart-box">
+            <h3>Organizaciones por Municipio</h3>
+            <canvas id="graficoMunicipio"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h3>Tipo de Comunidad</h3>
+            <canvas id="graficoComunidad"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h3>Estado del Emprendimiento</h3>
+            <canvas id="graficoEstado"></canvas>
+        </div>
+
     </div>
 
-    <div class="chart-box">
-        <h3>Tipo de Comunidad</h3>
-        <canvas id="graficoComunidad"></canvas>
-    </div>
 
-    <div class="chart-box">
-        <h3>Estado del Emprendimiento</h3>
-        <canvas id="graficoEstado"></canvas>
-    </div>
-
-</div>
-
+    <button onclick="exportarExcel()">Exportar Excel</button>
 </div>
 
 <!-- CHART JS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", function(){
 
     // MUNICIPIOS
@@ -285,4 +291,149 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 });
+</script> -->
+
+
+<script>
+
+    let graficoMunicipio;
+    let graficoComunidad;
+    let graficoEstado;
+
+    document.addEventListener("DOMContentLoaded", function(){
+
+        graficoMunicipio = crearGrafico('graficoMunicipio', 'bar', 
+            <?= json_encode($labels_municipio) ?>,
+            <?= json_encode($data_municipio) ?>
+        );
+
+        graficoComunidad = crearGrafico('graficoComunidad', 'pie',
+            <?= json_encode($labels_comunidad) ?>,
+            <?= json_encode($data_comunidad) ?>
+        );
+
+        graficoEstado = crearGrafico('graficoEstado', 'doughnut',
+            <?= json_encode($labels_estado) ?>,
+            <?= json_encode($data_estado) ?>
+        );
+
+    });
+
+    function crearGrafico(id, tipo, labels, data){
+        return new Chart(document.getElementById(id), {
+            type: tipo,
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data
+                }]
+            }
+        });
+    }
+
+    function actualizarGrafico(chart, datos, campo){
+
+        const labels = datos.map(d => d[campo]);
+        const values = datos.map(d => d.total);
+
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = values;
+        chart.update();
+    }
+
+</script>
+
+<script>
+    const ajaxUrl = "<?= admin_url('admin-ajax.php') ?>";
+
+    // detectar cambios
+    document.querySelectorAll('.aec-filtros select').forEach(select => {
+        select.addEventListener('change', filtrarKPI);
+    });
+
+
+function filtrarKPI(){
+
+    document.getElementById('aec-loader').style.display = 'flex';
+
+    const form = document.querySelector('.aec-filtros');
+    const data = new FormData(form);
+    data.append('action', 'aec_filtrar_kpi');
+
+    fetch(ajaxUrl, {
+        method: 'POST',
+        body: data
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        document.getElementById('aec-loader').style.display = 'none';
+
+        // document.querySelector('.kpi-box p').innerText = data.total;
+
+        animarKPI(document.querySelector('.kpi-box p'), data.total);
+
+        actualizarGrafico(graficoMunicipio, data.municipios, 'municipio');
+        actualizarGrafico(graficoComunidad, data.comunidad, 'enfoque');
+        actualizarGrafico(graficoEstado, data.estado, 'estado_iniciativa');
+
+    });
+}
+
+//   function filtrarKPI(){
+
+//         const form = document.querySelector('.aec-filtros');
+
+//         const data = new FormData(form);
+//         data.append('action', 'aec_filtrar_kpi');
+
+//         fetch(ajaxUrl, {
+//             method: 'POST',
+//             body: data
+//         })
+//         .then(res => res.json())
+//         .then(data => {
+
+//             // 🔥 KPI TOTAL
+//             document.querySelector('.kpi-box p').innerText = data.total;
+
+//             // 🔥 MUNICIPIOS
+//             actualizarGrafico(graficoMunicipio, data.municipios, 'municipio');
+
+//             // 🔥 COMUNIDAD
+//             actualizarGrafico(graficoComunidad, data.comunidad, 'enfoque');
+
+//             // 🔥 ESTADO
+//             actualizarGrafico(graficoEstado, data.estado, 'estado_iniciativa');
+
+//         });
+
+//     }
+
+
+    function exportarExcel(){
+
+        const params = new URLSearchParams(new FormData(document.querySelector('.aec-filtros')));
+
+        window.open("<?= admin_url('admin-ajax.php') ?>?action=aec_exportar_excel&" + params);
+    }
+
+
+
+    function animarKPI(elemento, valor){
+
+        let inicio = 0;
+        let intervalo = setInterval(() => {
+
+            inicio += Math.ceil(valor / 20);
+            if(inicio >= valor){
+                inicio = valor;
+                clearInterval(intervalo);
+            }
+
+            elemento.innerText = inicio;
+
+        }, 50);
+    }
+
 </script>

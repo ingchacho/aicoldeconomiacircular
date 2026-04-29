@@ -52,3 +52,99 @@ function aec_landing_page_shortcode() {
 }
 
 add_shortcode('aec_landing', 'aec_landing_page_shortcode');
+
+
+
+add_action('wp_ajax_aec_filtrar_kpi', 'aec_filtrar_kpi');
+add_action('wp_ajax_nopriv_aec_filtrar_kpi', 'aec_filtrar_kpi');
+
+function aec_filtrar_kpi(){
+
+    global $wpdb;
+    $tabla = $wpdb->prefix . 'organizaciones';
+
+    $where = "WHERE 1=1";
+    $params = [];
+
+    if (!empty($_POST['municipio'])) {
+        $where .= " AND municipio = %s";
+        $params[] = $_POST['municipio'];
+    }
+
+    if (!empty($_POST['enfoque'])) {
+        $where .= " AND enfoque = %s";
+        $params[] = $_POST['enfoque'];
+    }
+
+    if (!empty($_POST['estado'])) {
+        $where .= " AND estado_iniciativa = %s";
+        $params[] = $_POST['estado'];
+    }
+
+    // TOTAL
+    $total = $wpdb->get_var(
+        $wpdb->prepare("SELECT COUNT(*) FROM $tabla $where", $params)
+    );
+
+    // MUNICIPIO
+    $municipios = $wpdb->get_results(
+        $wpdb->prepare("
+            SELECT municipio, COUNT(*) as total 
+            FROM $tabla 
+            $where
+            GROUP BY municipio
+        ", $params)
+    );
+
+    // COMUNIDAD
+    $comunidad = $wpdb->get_results(
+        $wpdb->prepare("
+            SELECT enfoque, COUNT(*) as total 
+            FROM $tabla 
+            $where
+            GROUP BY enfoque
+        ", $params)
+    );
+
+    // ESTADO
+    $estado = $wpdb->get_results(
+        $wpdb->prepare("
+            SELECT estado_iniciativa, COUNT(*) as total 
+            FROM $tabla 
+            $where
+            GROUP BY estado_iniciativa
+        ", $params)
+    );
+
+    wp_send_json([
+        'total' => $total,
+        'municipios' => $municipios,
+        'comunidad' => $comunidad,
+        'estado' => $estado
+    ]);
+}
+
+
+
+
+add_action('wp_ajax_aec_exportar_excel', 'aec_exportar_excel');
+add_action('wp_ajax_nopriv_aec_exportar_excel', 'aec_exportar_excel');
+
+function aec_exportar_excel(){
+
+    global $wpdb;
+    $tabla = $wpdb->prefix . 'organizaciones';
+
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=reporte.xls");
+
+    $datos = $wpdb->get_results("SELECT * FROM $tabla");
+
+    echo "Nombre\tMunicipio\tEnfoque\n";
+
+    foreach($datos as $d){
+        echo "{$d->nombre}\t{$d->municipio}\t{$d->enfoque}\n";
+    }
+
+    exit;
+}

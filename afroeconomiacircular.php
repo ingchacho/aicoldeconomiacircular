@@ -181,3 +181,122 @@ function aec_logout() {
     wp_redirect(home_url('/login'));
     exit;
 }
+
+
+add_action('wp_ajax_aec_guardar_ajax', 'aec_guardar_ajax');
+add_action('wp_ajax_nopriv_aec_guardar_ajax', 'aec_guardar_ajax');
+
+function aec_guardar_ajax() {
+
+    if (!session_id()) session_start();
+
+    if (!isset($_SESSION['aec_user'])) {
+        wp_send_json_error('No autorizado');
+    }
+
+    global $wpdb;
+    $tabla = $wpdb->prefix . 'organizaciones';
+
+    $user = $_SESSION['aec_user'];
+    $step = intval($_POST['step']);
+
+    // =========================
+    // CREAR REGISTRO SI NO EXISTE
+    // =========================
+    if (!isset($_SESSION['aec_id'])) {
+
+        $insert = $wpdb->insert($tabla, [
+            'paso_actual' => 1,
+            'creado_por' => $user['id']
+        ]);
+
+        if ($insert === false) {
+            wp_send_json_error($wpdb->last_error);
+        }
+
+        $_SESSION['aec_id'] = $wpdb->insert_id;
+    }
+
+    $id = $_SESSION['aec_id'];
+
+    // =========================
+    // DATOS SEGÚN PASO
+    // =========================
+    $data = [];
+
+    if ($step == 1) {
+        $data = [
+            'nombre' => sanitize_text_field($_POST['nombre']),
+            'tipo_documento' => sanitize_text_field($_POST['tipo_documento']),
+            'numero_documento' => sanitize_text_field($_POST['numero_documento']),
+            'departamento' => sanitize_text_field($_POST['departamento']),
+            'municipio' => sanitize_text_field($_POST['municipio']),
+            'vereda' => sanitize_text_field($_POST['vereda']),
+            'telefono' => sanitize_text_field($_POST['telefono']),
+            'email' => sanitize_email($_POST['email']),
+            'edad' => intval($_POST['edad']),
+            'sexo' => sanitize_text_field($_POST['sexo']),
+            'genero' => sanitize_text_field($_POST['genero']),
+            'escolaridad' => sanitize_text_field($_POST['escolaridad']),
+            'enfoque' => sanitize_text_field($_POST['enfoque']),
+            'victima' => sanitize_text_field($_POST['victima']),
+            'campesino' => sanitize_text_field($_POST['campesino']),
+            'discapacidad' => sanitize_textarea_field($_POST['discapacidad']),
+            'mujer_rural' => sanitize_text_field($_POST['mujer_rural']),
+            'joven_rural' => sanitize_text_field($_POST['joven_rural']),
+            'personas_cargo' => intval($_POST['personas_cargo']),
+            'paso_actual' => 2
+        ];
+    }
+
+    if ($step == 2) {
+        $data = [
+            'nombre_emprendimiento' => sanitize_text_field($_POST['nombre_emprendimiento']),
+            'estado_iniciativa' => sanitize_text_field($_POST['estado_iniciativa']),
+            'tiempo_operacion' => sanitize_text_field($_POST['tiempo_operacion']),
+            'ubicacion_negocio' => sanitize_text_field($_POST['ubicacion_negocio']),
+            'paso_actual' => 3
+        ];
+    }
+
+    if ($step == 3) {
+        $data = [
+            'descripcion' => sanitize_textarea_field($_POST['descripcion']),
+            'mercado' => sanitize_textarea_field($_POST['mercado']),
+            'bienes_servicios' => sanitize_textarea_field($_POST['bienes_servicios']),
+            'insumos' => sanitize_textarea_field($_POST['insumos']),
+            'usa_residuos' => sanitize_text_field($_POST['usa_residuos']),
+            'paso_actual' => 4
+        ];
+    }
+
+    if ($step == 4) {
+        $data = [
+            'problema_ambiental' => sanitize_textarea_field($_POST['problema_ambiental']),
+            'saberes' => sanitize_text_field($_POST['saberes']),
+            'genera_empleo' => sanitize_text_field($_POST['genera_empleo']),
+            'paso_actual' => 5
+        ];
+    }
+
+    if ($step == 5) {
+        $data = [
+            'observaciones' => sanitize_textarea_field($_POST['observaciones']),
+            'paso_actual' => 5
+        ];
+    }
+
+    // =========================
+    // GUARDAR
+    // =========================
+    $update = $wpdb->update($tabla, $data, ['id' => $id]);
+
+    if ($update === false) {
+        wp_send_json_error($wpdb->last_error);
+    }
+
+    wp_send_json_success([
+        'step' => $step,
+        'id' => $id
+    ]);
+}

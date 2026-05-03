@@ -1,4 +1,14 @@
 <?php
+
+    if (!session_id()) session_start();
+
+    if(!isset($_SESSION['aec_user'])){
+        header("Location: ?page_id=5"); // página login
+        exit;
+    }
+
+    $user = $_SESSION['aec_user'];
+
     global $wpdb;
     $tabla = $wpdb->prefix . 'organizaciones';
 

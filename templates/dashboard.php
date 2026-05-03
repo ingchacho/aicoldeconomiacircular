@@ -1,28 +1,64 @@
 <?php
+if (!session_id()) session_start();
+
+if(!isset($_SESSION['aec_user'])){
+    header("Location: ?page_id=5"); // página login
+    exit;
+}
+
+$user = $_SESSION['aec_user'];
+
 global $wpdb;
 $tabla = $wpdb->prefix . 'organizaciones';
 
-// ELIMINAR
+// 🔥 FILTRO POR USUARIO
+$where = "WHERE 1=1";
+
+if($user['rol'] == 'LIM'){
+    $where .= " AND creado_por = " . intval($user['id']);
+}
+
+// 🔥 ELIMINAR (solo si tiene permiso)
 if (isset($_GET['delete'])) {
+
     $id = intval($_GET['delete']);
-    $wpdb->delete($tabla, ['id' => $id]);
+
+    if($user['rol'] == 'ADMIN'){
+        $wpdb->delete($tabla, ['id' => $id]);
+    } else {
+        // 🔥 LIM solo elimina lo suyo
+        $wpdb->delete($tabla, [
+            'id' => $id,
+            'creado_por' => $user['id']
+        ]);
+    }
+
     echo "<p style='color:red;'>Registro eliminado</p>";
 }
 
-// LISTAR
-$resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
+// 🔥 LISTAR (YA FILTRADO)
+    $where = "";
+
+    if($user['rol'] == 'LIM'){
+        $where = "WHERE creado_por = " . intval($user['id']);
+    }
+
+    $resultados = $wpdb->get_results("SELECT * FROM $tabla $where ORDER BY id DESC");
+
 ?>
 
 <div class="aec-container">
 
     <h2>Organizaciones Registradas</h2>
+
     <button onclick="nuevoRegistro()">+ Agregar</button>
+
     <table border="1" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Territorio</th>
+                <th>Municipio</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -35,16 +71,20 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
                 <td><?= $row->municipio ?></td>
                 <td>
                     <a href="?edit=<?= $row->id ?>&paso=1" class="aec-btn">Editar</a>
-                    <a href="?delete=<?= $row->id ?>" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+
+                    <a href="?delete=<?= $row->id ?>" 
+                       onclick="return confirm('¿Eliminar?')">
+                       Eliminar
+                    </a>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>
 
 
+<!-- 🔥 MODAL -->
 <div id="modalForm" class="aec-modal">
     <div class="aec-modal-content">
         <span onclick="cerrarModal()" class="close">&times;</span>
@@ -55,55 +95,51 @@ $resultados = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
 </div>
 
 <?php if (isset($_GET['edit'])): ?>
-    <script>
-    document.addEventListener("DOMContentLoaded", function(){
-        abrirModal();
-    });
-    </script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    abrirModal();
+});
+</script>
 <?php endif; ?>
 
-<script>
-    function abrirModal(){
-        document.getElementById("modalForm").classList.add("active");
-    }
 
-    function cerrarModal(){
-    // Cerrar modal
+<script>
+
+function abrirModal(){
+    document.getElementById("modalForm").classList.add("active");
+}
+
+function cerrarModal(){
+
     document.getElementById("modalForm").classList.remove("active");
 
-    // 🔥 Limpiar URL (quitar edit y paso)
     const url = new URL(window.location.href);
 
     url.searchParams.delete('edit');
     url.searchParams.delete('paso');
 
-    // 🔥 Actualiza la URL sin recargar
     window.history.replaceState({}, document.title, url.pathname);
-    }
+}
 
-    function nuevoRegistro(){
+function nuevoRegistro(){
 
-        const url = new URL(window.location.href);
+    const url = new URL(window.location.href);
 
-        // 🔥 eliminar parámetros
-        url.searchParams.delete('edit');
-        url.searchParams.delete('paso');
+    url.searchParams.delete('edit');
+    url.searchParams.delete('paso');
 
-        // 🔥 actualizar URL sin recargar
-        window.history.replaceState({}, document.title, url.pathname);
+    window.history.replaceState({}, document.title, url.pathname);
 
-        // 🔥 limpiar TODOS los inputs manualmente
-        document.querySelectorAll('#modalForm input, #modalForm textarea, #modalForm select')
-        .forEach(el => {
-            if (el.type === 'checkbox' || el.type === 'radio') {
-                el.checked = false;
-            } else {
-                el.value = '';
-            }
-        });
+    document.querySelectorAll('#modalForm input, #modalForm textarea, #modalForm select')
+    .forEach(el => {
+        if (el.type === 'checkbox' || el.type === 'radio') {
+            el.checked = false;
+        } else {
+            el.value = '';
+        }
+    });
 
-        // 🔥 abrir modal limpio
-        abrirModal();
-    }
+    abrirModal();
+}
 
 </script>

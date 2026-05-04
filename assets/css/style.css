@@ -226,36 +226,6 @@ html {
     overflow: visible !important;
 }
 
-/* .kpi-box {
-    background: #1B5E20;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-canvas {
-    max-width: 100%;
-    margin-bottom: 40px;
-}
-
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.kpi-box {
-    background: #1B5E20;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-} */
-
-
-
 
 /* KPIs */
 .kpi-grid {

@@ -300,3 +300,17 @@ function aec_guardar_ajax() {
         'id' => $id
     ]);
 }
+
+add_shortcode('aec_landing', function() {
+    ob_start();
+    include AEC_PATH . 'templates/landing.php';
+    return ob_get_clean();
+});
+
+
+function quitar_estilos_tema() {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('classic-theme-styles');
+}
+add_action('wp_enqueue_scripts', 'quitar_estilos_tema', 100);

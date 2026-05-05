@@ -197,3 +197,11 @@ function aec_kpi_shortcode() {
     return ob_get_clean();
 }
 add_shortcode('aec_kpi', 'aec_kpi_shortcode');
+
+function desactivar_elementos_wp_en_landing() {
+    if (is_page_template('templates/landing.php')) {
+        remove_all_actions('wp_head');
+        remove_all_actions('wp_footer');
+    }
+}
+add_action('wp', 'desactivar_elementos_wp_en_landing');

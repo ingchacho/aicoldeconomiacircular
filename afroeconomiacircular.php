@@ -314,3 +314,32 @@ function quitar_estilos_tema() {
     wp_dequeue_style('classic-theme-styles');
 }
 add_action('wp_enqueue_scripts', 'quitar_estilos_tema', 100);
+
+
+
+function aicold_landing_rewrite() {
+    add_rewrite_rule('^landing/?$', 'index.php?aicold_landing=1', 'top');
+}
+add_action('init', 'aicold_landing_rewrite');
+
+function aicold_query_vars($vars) {
+    $vars[] = 'aicold_landing';
+    return $vars;
+}
+add_filter('query_vars', 'aicold_query_vars');
+
+function aicold_template_redirect() {
+    if (get_query_var('aicold_landing')) {
+
+        $file = plugin_dir_path(__FILE__) . 'templates/landing.php';
+
+        if (file_exists($file)) {
+            include $file;
+        } else {
+            echo "Error: no se encontró landing.php";
+        }
+
+        exit;
+    }
+}
+add_action('template_redirect', 'aicold_template_redirect');

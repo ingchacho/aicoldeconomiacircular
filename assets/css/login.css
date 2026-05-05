@@ -1,0 +1,54 @@
+           /* 🔥 CONTENEDOR LOGIN */
+           .aec-login-wrapper {
+               display: flex;
+               height: 100vh;
+           }
+
+           /* IZQUIERDA */
+           .aec-login-left {
+               flex: 1.2;
+               display: flex;
+           }
+
+           /* 🔥 HERO SE ADAPTA */
+           .aec-login-left .wf-hero {
+               width: 100%;
+               height: 100%;
+               display: flex;
+               align-items: center;
+           }
+
+           .hero-content {
+               max-width: 600px;
+           }
+
+           /* DERECHA */
+           .aec-login-right {
+               flex: 0.8;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+           }
+
+           /* FORM */
+           .aec-login {
+               width: 300px;
+           }
+
+           .aec-login input {
+               width: 100%;
+               margin-bottom: 10px;
+               padding: 10px;
+               border: none;
+               border-radius: 5px;
+           }
+
+           .aec-login button {
+               width: 100%;
+               padding: 10px;
+               background: #2e7d32;
+               color: white;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+           }

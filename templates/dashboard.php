@@ -1,3 +1,6 @@
+<?php
+    $modulo = $_GET['modulo'] ?? 'home';
+?>
 
 <?php
     if (!session_id()) session_start();
@@ -38,6 +41,53 @@
     $resultados = $wpdb->get_results("SELECT * FROM $tabla $where ORDER BY id DESC");
 ?>
 
+
+
+
+<?php
+
+    if (isset($_GET['aprobar']) && $user['rol'] == 'ADMIN') {
+
+        global $wpdb;
+
+        $id = intval($_GET['aprobar']);
+
+        $tabla_asp = $wpdb->prefix . 'aec_aspirantes';
+        $tabla_usr = $wpdb->prefix . 'aec_usuarios';
+
+        // 🔥 Obtener aspirante
+        $asp = $wpdb->get_row("SELECT * FROM $tabla_asp WHERE id = $id");
+
+        if ($asp && $asp->estado == 'PENDIENTE') {
+
+            // 🔐 Generar contraseña temporal
+            $password_plano = wp_generate_password(8);
+            $password_hash = password_hash($password_plano, PASSWORD_DEFAULT);
+
+            // 👤 Crear usuario
+            $wpdb->insert($tabla_usr, [
+                'nombre' => $asp->nombre,
+                'email' => $asp->email,
+                'password' => $password_hash,
+                'rol' => 'LIM',
+                'estado' => 'ACTIVO',
+                'fecha' => current_time('mysql')
+            ]);
+
+            // 🔄 Actualizar aspirante
+            $wpdb->update($tabla_asp, [
+                'estado' => 'APROBADO'
+            ], [
+                'id' => $id
+            ]);
+
+            echo "<p style='color:green;'>Usuario creado. Password: $password_plano</p>";
+        }
+    }
+?>
+
+
+
     <div class="aec-container">
         <h2>Organizaciones Registradas</h2>
         
@@ -73,6 +123,58 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+
+
+
+<?php if($modulo == 'aspirantes'): ?>
+
+    <h2>Aspirantes registrados</h2>
+
+    <?php
+    global $wpdb;
+    $tabla = $wpdb->prefix . 'aec_aspirantes';
+
+    $aspirantes = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
+    ?>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach($aspirantes as $a): ?>
+            <tr>
+                <td><?= $a->id ?></td>
+                <td><?= $a->nombre ?></td>
+                <td><?= $a->email ?></td>
+                <td><?= $a->estado ?></td>
+                <td>
+                    <?php if($a->estado == 'PENDIENTE'): ?>
+                        <a href="?modulo=aspirantes&aprobar=<?= $a->id ?>" class="aec-btn">
+                            Aprobar
+                        </a>
+                    <?php else: ?>
+                        ✔ Aprobado
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php endif; ?>
+
+
+
+
     </div>
 
 

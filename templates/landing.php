@@ -67,14 +67,16 @@
                                 Plataforma para la caracterización de organizaciones comunitarias afrocolombianas, indígenas, raizales y palenqueras que desarrollan emprendimientos en economía circular, gestión de residuos y negocios verdes.
                                 </p>
                                 <div class="hero-ctas">
-                                <button class="cta-primary">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-                                    Mostrar indicadores KPI
-                                </button>
-                                <button class="cta-secondary">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                                    Registro de aspirantes
-                                </button>
+                                    <button class="cta-primary">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                                        Mostrar indicadores KPI
+                                    </button>
+                                
+                                    <a href="<?php echo home_url('/registro'); ?>" class="cta-secondary" style="display: inline-block;text-decoration: none;" target="_blank">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>                                    
+                                        Registro de aspirantes
+                                    </a>
+
                                 </div>
                             </div>
                     

@@ -74,6 +74,8 @@ function aec_crear_tabla_usuarios(){
     dbDelta($sql);
 }
 
+
+
 // ===============================
 // 🔗 SHORTCODE KPI
 // ===============================
@@ -343,3 +345,58 @@ function aicold_template_redirect() {
     }
 }
 add_action('template_redirect', 'aicold_template_redirect');
+
+
+// ===============================
+// TABLA ASPIRANTES
+// ===============================
+function aec_crear_tabla_aspirantes() {
+    global $wpdb;
+
+    $tabla = $wpdb->prefix . 'aec_aspirantes';
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $tabla (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR(150) NOT NULL,
+        documento VARCHAR(50) NOT NULL,
+        fecha_nacimiento DATE,
+        departamento VARCHAR(100),
+        municipio VARCHAR(100),
+        vereda VARCHAR(100),
+        whatsapp VARCHAR(20),
+        email VARCHAR(150) NOT NULL,
+        estado VARCHAR(20) DEFAULT 'PENDIENTE',
+        fecha DATETIME DEFAULT CURRENT_TIMESTAMP
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+
+register_activation_hook(__FILE__, 'aec_crear_tabla_aspirantes');
+
+
+// 🔥 REGISTRAR RUTA /registro
+function aec_registro_rewrite() {
+    add_rewrite_rule('^registro/?$', 'index.php?aec_registro=1', 'top');
+}
+add_action('init', 'aec_registro_rewrite');
+
+
+// 🔥 QUERY VAR
+function aec_registro_query_vars($vars) {
+    $vars[] = 'aec_registro';
+    return $vars;
+}
+add_filter('query_vars', 'aec_registro_query_vars');
+
+
+// 🔥 CARGAR TEMPLATE
+function aec_registro_template() {
+    if (get_query_var('aec_registro')) {
+        include plugin_dir_path(__FILE__) . 'templates/page-registro.php';
+        exit;
+    }
+}
+add_action('template_redirect', 'aec_registro_template');

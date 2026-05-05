@@ -16,6 +16,11 @@
                 <ul>        
                     <li><a href="<?= site_url('/kpi') ?>">📈 KPI</a></li>
                     <li><a href="<?= site_url('/dashboard') ?>">📊 Dashboard</a></li>
+
+                    <?php if($user['rol'] == 'ADMIN'): ?>
+                        <a href="?modulo=aspirantes" class="aec-btn">Aspirantes</a>
+                    <?php endif; ?>
+
                     <li><a href="<?= admin_url('admin-ajax.php?action=aec_logout') ?>">🚪 Cerrar sesión</a></li>
                 </ul>
             </aside>

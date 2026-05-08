@@ -44,49 +44,182 @@
 
 
 
-<?php
+    <?php
 
-    if (isset($_GET['aprobar']) && $user['rol'] == 'ADMIN') {
+        if (isset($_GET['aprobar']) && $user['rol'] == 'ADMIN') {
 
-        global $wpdb;
+            global $wpdb;
 
-        $id = intval($_GET['aprobar']);
+            $id = intval($_GET['aprobar']);
 
-        $tabla_asp = $wpdb->prefix . 'aec_aspirantes';
-        $tabla_usr = $wpdb->prefix . 'aec_usuarios';
+            $tabla_asp = $wpdb->prefix . 'aec_aspirantes';
+            $tabla_usr = $wpdb->prefix . 'aec_usuarios';
 
-        // 🔥 Obtener aspirante
-        $asp = $wpdb->get_row("SELECT * FROM $tabla_asp WHERE id = $id");
+            // 🔥 Obtener aspirante
+            $asp = $wpdb->get_row(
+                $wpdb->prepare(
+                    "SELECT * FROM $tabla_asp WHERE id = %d",
+                    $id
+                )
+            );
 
-        if ($asp && $asp->estado == 'PENDIENTE') {
+            // 🔥 VALIDAR
+            if ($asp && $asp->estado == 'PENDIENTE') {
 
-            // 🔐 Generar contraseña temporal
-            $password_plano = wp_generate_password(8);
-            $password_hash = password_hash($password_plano, PASSWORD_DEFAULT);
+                // 🔐 PASSWORD TEMPORAL
+                $password_plano = wp_generate_password(8, false);
 
-            // 👤 Crear usuario
-            $wpdb->insert($tabla_usr, [
-                'nombre' => $asp->nombre,
-                'email' => $asp->email,
-                'password' => $password_hash,
-                'rol' => 'LIM',
-                'estado' => 'ACTIVO',
-                'fecha' => current_time('mysql')
-            ]);
+                // 🔐 HASH
+                $password_hash = password_hash($password_plano, PASSWORD_DEFAULT);
 
-            // 🔄 Actualizar aspirante
-            $wpdb->update($tabla_asp, [
-                'estado' => 'APROBADO'
-            ], [
-                'id' => $id
-            ]);
+                // 👤 CREAR USUARIO
+                $wpdb->insert($tabla_usr, [
+                    'nombre' => $asp->nombre,
+                    'email' => $asp->email,
+                    'password' => $password_hash,
+                    'rol' => 'LIM',
+                    'estado' => 'ACTIVO',
+                    'fecha' => current_time('mysql')
+                ]);
 
-            echo "<p style='color:green;'>Usuario creado. Password: $password_plano</p>";
+                // 🔄 ACTUALIZAR ASPIRANTE
+                $wpdb->update(
+                    $tabla_asp,
+                    [
+                        'estado' => 'APROBADO'
+                    ],
+                    [
+                        'id' => $id
+                    ]
+                );
+
+                // 🔥 CORREO
+                $destino = $asp->email;
+
+                $asunto = 'Credenciales de acceso - Plataforma AICOLD';
+
+                $login_url = home_url('/login');
+
+                $mensaje = '
+                <div style="font-family:Arial;padding:20px;background:#f5f5f5;">
+                    
+                    <div style="
+                        max-width:600px;
+                        margin:auto;
+                        background:white;
+                        padding:30px;
+                        border-radius:10px;
+                    ">
+
+                        <h2 style="color:#2e7d32;">
+                            Bienvenido a la Plataforma AICOLD
+                        </h2>
+
+                        <p>
+                            Su solicitud ha sido aprobada exitosamente.
+                        </p>
+
+                        <p>
+                            Ya puede ingresar al sistema con las siguientes credenciales:
+                        </p>
+
+                        <table style="width:100%;border-collapse:collapse;">
+                            <tr>
+                                <td style="padding:10px;">
+                                    <strong>Usuario:</strong>
+                                </td>
+
+                                <td style="padding:10px;">
+                                    '.$asp->email.'
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding:10px;">
+                                    <strong>Contraseña:</strong>
+                                </td>
+
+                                <td style="padding:10px;">
+                                    '.$password_plano.'
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div style="margin-top:30px;text-align:center;">
+
+                            <a href="'.$login_url.'" 
+                            style="
+                                background:#2e7d32;
+                                color:white;
+                                padding:14px 25px;
+                                text-decoration:none;
+                                border-radius:5px;
+                                display:inline-block;
+                            ">
+                                Ingresar al sistema
+                            </a>
+
+                        </div>
+
+                        <p style="
+                            margin-top:30px;
+                            font-size:12px;
+                            color:#777;
+                        ">
+                            Plataforma AICOLD · Economía Circular
+                        </p>
+
+                    </div>
+
+                </div>
+                ';
+
+                // 🔥 HEADERS HTML
+                $headers = array(
+                    'Content-Type: text/html; charset=UTF-8'
+                );
+
+                // 🔥 ENVIAR
+                $enviado = wp_mail(
+                    $destino,
+                    $asunto,
+                    $mensaje,
+                    $headers
+                );
+
+                // 🔥 MENSAJE FINAL
+                if ($enviado) {
+
+                    echo '
+                    <div style="
+                        background:#d4edda;
+                        color:#155724;
+                        padding:15px;
+                        border-radius:5px;
+                        margin-bottom:20px;
+                    ">
+                        ✅ Usuario aprobado y correo enviado correctamente.
+                    </div>
+                    ';
+
+                } else {
+
+                    echo '
+                    <div style="
+                        background:#f8d7da;
+                        color:#721c24;
+                        padding:15px;
+                        border-radius:5px;
+                        margin-bottom:20px;
+                    ">
+                        ⚠ Usuario creado, pero el correo NO pudo enviarse.
+                    </div>
+                    ';
+                }
+            }
         }
-    }
-?>
 
-
+    ?>
 
     <div class="aec-container">
         <h2>Organizaciones Registradas</h2>

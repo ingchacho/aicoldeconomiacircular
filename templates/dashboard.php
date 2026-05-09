@@ -1,6 +1,66 @@
 <?php
-    $modulo = $_GET['modulo'] ?? 'home';
+    $modulo = $_GET['modulo'] ?? 'kpi';
 ?>
+
+<?php if($modulo == 'kpi'): ?>
+    <?php include AEC_PATH . 'templates/kpi.php'; ?>
+<?php endif; ?>
+
+
+<?php
+
+    // =========================
+    // MÓDULO ASPIRANTES
+    // =========================
+
+    if($modulo == 'aspirantes'){
+
+        include AEC_PATH . 'templates/modulo-aspirantes.php';
+
+    }
+
+
+    // =========================
+    // MÓDULO ORGANIZACIONES
+    // =========================
+
+    if($modulo == 'organizaciones'){
+
+        include AEC_PATH . 'templates/modulo-organizaciones.php';
+
+    }
+
+?>
+
+
+<?php
+
+    if($modulo == 'kpi-ambientales'){
+        include AEC_PATH . 'templates/kpi-ambientales.php';
+    }
+
+    if($modulo == 'kpi-sociales'){
+        include AEC_PATH . 'templates/kpi-sociales.php';
+    }
+
+    if($modulo == 'kpi-economicos'){
+        include AEC_PATH . 'templates/kpi-economicos.php';
+    }
+
+    if($modulo == 'kpi-territoriales'){
+        include AEC_PATH . 'templates/kpi-territoriales.php';
+    }
+
+    if($modulo == 'kpi-digitales'){
+        include AEC_PATH . 'templates/kpi-digitales.php';
+    }
+
+    if($modulo == 'kpi-estrategicos'){
+        include AEC_PATH . 'templates/kpi-estrategicos.php';
+    }
+
+?>
+
 
 <?php
     if (!session_id()) session_start();
@@ -221,95 +281,10 @@
 
     ?>
 
-    <div class="aec-container">
-        <h2>Organizaciones Registradas</h2>
-        
-        <a href="?nuevo=1" class="btn btn-primary">
-            Nuevo registro
-        </a>
 
-        <table border="1" width="100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Municipio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <?php foreach ($resultados as $row): ?>
-                <tr>
-                    <td><?= $row->id ?></td>
-                    <td><?= $row->nombre ?></td>
-                    <td><?= $row->municipio ?></td>
-                    <td>
-                        <a href="?edit=<?= $row->id ?>&paso=1" class="aec-btn">Editar</a>
-
-                        <a href="?delete=<?= $row->id ?>" 
-                        onclick="return confirm('¿Eliminar?')">
-                        Eliminar
-                        </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-
-
-
-
-<?php if($modulo == 'aspirantes'): ?>
-
-    <h2>Aspirantes registrados</h2>
-
-    <?php
-    global $wpdb;
-    $tabla = $wpdb->prefix . 'aec_aspirantes';
-
-    $aspirantes = $wpdb->get_results("SELECT * FROM $tabla ORDER BY id DESC");
-    ?>
-
-    <table border="1" width="100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Estado</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <?php foreach($aspirantes as $a): ?>
-            <tr>
-                <td><?= $a->id ?></td>
-                <td><?= $a->nombre ?></td>
-                <td><?= $a->email ?></td>
-                <td><?= $a->estado ?></td>
-                <td>
-                    <?php if($a->estado == 'PENDIENTE'): ?>
-                        <a href="?modulo=aspirantes&aprobar=<?= $a->id ?>" class="aec-btn">
-                            Aprobar
-                        </a>
-                    <?php else: ?>
-                        ✔ Aprobado
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-
+<?php if($modulo == 'organizaciones'): ?>
+    
 <?php endif; ?>
-
-
-
-
-    </div>
-
 
 <!-- 🔥 MODAL -->
 <div id="modalForm" class="aec-modal">

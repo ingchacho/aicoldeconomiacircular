@@ -335,29 +335,36 @@ html {
 
 /* SIDEBAR */
 .aec-sidebar {
-    width: 220px;
-    background: #263238;
-    color: white;
-    padding: 20px;
+    width: 260px;
+    min-height: 100vh;
+    background: #111827;
+    padding: 20px 15px;
 }
 
 .aec-sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .aec-sidebar li {
-    margin-bottom: 10px;
+    list-style: none;
 }
 
+/* LINKS */
 .aec-sidebar a {
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-decoration: none;
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+    font-size: 14px;
 }
 
-/* CONTENIDO */
-.aec-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+.aec-sidebar a:hover {
+    background: #1f2937;
 }

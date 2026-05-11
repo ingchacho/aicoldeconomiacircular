@@ -1,5 +1,6 @@
 <?php
-    $modulo = $_GET['modulo'] ?? 'kpi';
+    // $modulo = $_GET['modulo'] ?? 'kpi';
+    $modulo = $_GET['modulo'] ?? 'dashboard-home';
 ?>
 
 <?php if($modulo == 'kpi'): ?>
@@ -35,6 +36,10 @@
 
 <?php
 
+    if($modulo == 'dashboard-home'){
+        include AEC_PATH . 'templates/dashboard-home.php';
+    }
+
     if($modulo == 'kpi-ambientales'){
         include AEC_PATH . 'templates/kpi-ambientales.php';
     }
@@ -57,6 +62,38 @@
 
     if($modulo == 'kpi-estrategicos'){
         include AEC_PATH . 'templates/kpi-estrategicos.php';
+    }
+
+    // =========================
+    // PERFIL
+    // =========================
+
+    if($modulo == 'mi-perfil'){
+        include AEC_PATH . 'templates/mi-perfil.php';
+    }
+
+    if($modulo == 'editar-perfil'){
+        include AEC_PATH . 'templates/editar-perfil.php';
+    }
+
+    if($modulo == 'avatar'){
+        include AEC_PATH . 'templates/avatar.php';
+    }
+
+    // =========================
+    // CONFIGURACIÓN
+    // =========================
+
+    if($modulo == 'cambiar-password'){
+        include AEC_PATH . 'templates/cambiar-password.php';
+    }
+
+    if($modulo == 'configuracion'){
+        include AEC_PATH . 'templates/configuracion.php';
+    }
+
+    if($modulo == 'notificaciones'){
+        include AEC_PATH . 'templates/notificaciones.php';
     }
 
 ?>

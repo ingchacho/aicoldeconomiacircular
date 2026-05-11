@@ -368,3 +368,254 @@ html {
 .aec-sidebar a:hover {
     background: #1f2937;
 }
+
+
+
+
+
+
+/* =========================================
+HOME EJECUTIVO
+========================================= */
+
+.aec-home {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* HERO */
+
+.aec-hero {
+
+    background:
+        linear-gradient(135deg,
+            #166534,
+            #22c55e);
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow:
+        0 20px 45px rgba(34, 197, 94, .25);
+}
+
+.aec-hero h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.aec-hero p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.aec-hero span {
+    opacity: .9;
+}
+
+.aec-hero-badge {
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .15);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    backdrop-filter: blur(10px);
+}
+
+/* GRID KPI */
+
+.aec-home-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.aec-home-card {
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    color: white;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .08);
+
+    transition: .3s;
+}
+
+.aec-home-card:hover {
+
+    transform: translateY(-5px);
+}
+
+.aec-home-card h3 {
+    margin-top: 0;
+}
+
+.aec-home-card p {
+
+    font-size: 38px;
+
+    margin: 0;
+
+    font-weight: bold;
+}
+
+/* COLORES */
+
+.green {
+    background:
+        linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.blue {
+    background:
+        linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.orange {
+    background:
+        linear-gradient(135deg, #ea580c, #fb923c);
+}
+
+.purple {
+    background:
+        linear-gradient(135deg, #7c3aed, #a855f7);
+}
+
+/* SHORTCUTS */
+
+.aec-shortcuts {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.aec-shortcuts a {
+
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    text-decoration: none;
+
+    color: #166534;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .05);
+
+    transition: .3s;
+}
+
+.aec-shortcuts a:hover {
+
+    transform: translateY(-4px);
+
+    background: #f0fdf4;
+}
+
+/* EXECUTIVE GRID */
+
+.aec-executive-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 20px;
+}
+
+.aec-panel {
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .05);
+}
+
+.aec-panel h3 {
+    margin-top: 0;
+}
+
+.aec-activity {
+
+    padding-left: 20px;
+}
+
+.aec-activity li {
+    margin-bottom: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px) {
+
+    .aec-home-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aec-shortcuts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aec-executive-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:768px) {
+
+    .aec-home-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aec-shortcuts {
+        grid-template-columns: 1fr;
+    }
+
+    .aec-hero {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

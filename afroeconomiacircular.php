@@ -3,7 +3,7 @@
 Plugin Name: Afro Economía Circular
 Description: Micrositio para caracterización de organizaciones afro, indígenas, raizales y palenqueras.
 Version: 1.0
-Author: Yavasoft
+Author: Ing Chacho Yavasoft
 */
 
 if (!defined('ABSPATH')) {

@@ -18,7 +18,6 @@
 
     <body>
           <div class="canvas-area">        
-            <div class="device-frame desktop" id="deviceFrame">
                 <div class="microsite">
                     <nav class="wf-nav">
                         <div class="logo-area">                            
@@ -37,17 +36,25 @@
                         <div class="wf-nav-link">Contactenos</div>
                         </div>
                         
-                        <div class="wf-nav-actions">            
-                            <!-- <a href="/aicold/wordpress-6.9.4/wordpress/login/" class="wf-btn-outline">
-                                Iniciar Sesión
-                            </a> -->
-
+                        <div class="wf-nav-actions">                                       
                             <a href="<?php echo site_url('/login'); ?>" class="wf-btn-outline">Iniciar sesión</a>
-
                         </div>
-                        <div class="wf-hamburger">
-                        <span></span><span></span><span></span>
+                        <!-- HAMBURGER -->
+                        <div class="wf-hamburger" onclick="toggleMobileMenu()">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
+                        <!-- MOBILE MENU -->
+                        <div id="wf-mobile-menu" class="wf-mobile-menu">
+                            <a href="#">Inicio</a>
+                            <a href="#">Indicadores</a>
+                            <a href="#">Mapa territorial</a>
+                            <a href="#">Contáctenos</a>
+                            <a href="<?php echo site_url('/login'); ?>" class="mobile-login-btn">Iniciar sesión</a>
+                        </div>
+                        <!-- OVERLAY -->
+                        <div id="wf-overlay" class="wf-overlay" onclick="closeMobileMenu()"></div>
                     </nav>
 
                     <!-- ══ SECCIÓN: HERO ══ -->
@@ -191,7 +198,31 @@
                         </div>
                     </footer>
                 </div><!-- /microsite -->    
-            </div><!-- /device-frame -->    
         </div><!-- /canvas-area -->   
+
+        <script>
+            function toggleMobileMenu(){
+                document.getElementById('wf-mobile-menu').classList.toggle('active');
+                document.getElementById('wf-overlay').classList.toggle('active');
+            }
+            function closeMobileMenu(){
+                document.getElementById('wf-mobile-menu').classList.remove('active');
+                document.getElementById('wf-overlay').classList.remove('active');
+            }
+        </script>
+
+        <script>
+            window.addEventListener('scroll', function(){
+                const nav = document.querySelector('.wf-nav');
+                if(window.scrollY > 40){
+
+                    nav.classList.add('scrolled');
+
+                }else{
+
+                    nav.classList.remove('scrolled');
+                }
+            });
+        </script>
     </body>
 </html>

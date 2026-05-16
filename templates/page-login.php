@@ -11,32 +11,33 @@
     </head>
     <body>
         <!-- 🔥 HEADER (MISMO DE LANDING) -->
-        <div class="canvas-area">        
-            <div class="device-frame desktop" id="deviceFrame">
-                <div class="microsite">
-                    <nav class="wf-nav">
-                        <div class="logo-area">                            
-                            <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/3.png" alt="Logo 3" style="width:180px;">                            
-                        </div>
-                        <div class="logo-area">                            
-                            <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/5.png" alt="Logo 5" style="width:150px;">
-                        </div>                        
-                        <div class="logo-area">                            
-                            <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/1.png" alt="Logo 1" style="width:180px;">
-                        </div>                                                
-                        <div class="wf-hamburger">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </nav>
-                    
+        <div class="canvas-area">
+            <div class="device-frame" id="deviceFrame">
+                <div class="microsite">                
                     <!-- 🔥 CONTENEDOR PRINCIPAL -->
                     <section class="aec-login-wrapper">
                         <!-- IZQUIERDA (BANNER LANDING) -->
                         <div class="aec-login-left">
-                            <section class="wf-hero">
+                            <section class="wf-hero">                            
+                                <!-- VIDEO -->
+                                <div class="hero-video-container">
+
+                                    <iframe
+                                        class="hero-youtube-video"
+                                        src="https://www.youtube.com/embed/M9v9JYVS3Mc?autoplay=1&mute=1&controls=0&loop=1&playlist=M9v9JYVS3Mc&playsinline=1&modestbranding=1&rel=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen>
+                                    </iframe>
+
+                                </div>
+
+                                <!-- OVERLAY -->
+                                <div class="hero-overlay"></div>
                                 <div class="hero-pattern"></div>
                                 <div class="hero-circles"></div>
                                 <div class="hero-content">
+
                                     <div class="hero-eyebrow">
                                         <div class="dot"></div>
                                         <span>Micrositio AICOLD · Organizaciones Étnicas</span>
@@ -54,25 +55,40 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="hero-stats">
+                               <div class="hero-stats">
                                     <div class="stat-card">
                                         <span class="num">28</span>
                                         <span class="lbl">Departamentos</span>
                                     </div>
+
                                     <div class="stat-card">
                                         <span class="num">4</span>
                                         <span class="lbl">Pueblos étnicos</span>
                                     </div>
+
                                     <div class="stat-card">
                                         <span class="num">187</span>
                                         <span class="lbl">Iniciativas verdes</span>
                                     </div>
+
                                 </div>
                             </section>                            
                         </div>
 
                         <!-- DERECHA (LOGIN) -->
                         <div class="aec-login-right">
+                            <div class="aec-login-brand">
+                                <div class="logo-area">                            
+                                    <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/3.png" alt="Logo 3" style="width:180px;">                            
+                                </div>
+                                <div class="logo-area">                            
+                                    <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/5.png" alt="Logo 5" style="width:150px;">
+                                </div>                        
+                                <div class="logo-area">                            
+                                    <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/1.png" alt="Logo 1" style="width:180px;">
+                                </div>                                                
+                            </div>
+
                             <div class="aec-login">
                                 <h2>Iniciar Sesión</h2>
                                 <form method="POST">

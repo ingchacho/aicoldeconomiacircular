@@ -1,168 +1,280 @@
 <?php
-    global $wpdb;
+global $wpdb;
 
-    $tabla = $wpdb->prefix . 'aec_aspirantes';
-    $mensaje = "";
+$tabla = $wpdb->prefix . 'aec_aspirantes';
+$mensaje = "";
 
-    // 🔥 GUARDAR FORMULARIO
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/* =========================================
+GUARDAR FORMULARIO
+========================================= */
 
-        $wpdb->insert($tabla, [
-            'nombre' => sanitize_text_field($_POST['nombre']),
-            'documento' => sanitize_text_field($_POST['documento']),
-            'fecha_nacimiento' => $_POST['fecha_nacimiento'],
-            'departamento' => sanitize_text_field($_POST['departamento']),
-            'municipio' => sanitize_text_field($_POST['municipio']),
-            'vereda' => sanitize_text_field($_POST['vereda']),
-            'whatsapp' => sanitize_text_field($_POST['whatsapp']),
-            'email' => sanitize_email($_POST['email']),
-            'estado' => 'PENDIENTE',
-            'fecha' => current_time('mysql')
-        ]);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $mensaje = "✅ Tu solicitud fue enviada. Un administrador validará tu información.";
-    }
+    $wpdb->insert($tabla, [
+        'nombre' => sanitize_text_field($_POST['nombre']),
+        'documento' => sanitize_text_field($_POST['documento']),
+        'fecha_nacimiento' => $_POST['fecha_nacimiento'],
+        'departamento' => sanitize_text_field($_POST['departamento']),
+        'municipio' => sanitize_text_field($_POST['municipio']),
+        'vereda' => sanitize_text_field($_POST['vereda']),
+        'whatsapp' => sanitize_text_field($_POST['whatsapp']),
+        'email' => sanitize_email($_POST['email']),
+        'estado' => 'PENDIENTE',
+        'fecha' => current_time('mysql')
+    ]);
+
+    $mensaje = "✅ Tu solicitud fue enviada correctamente.";
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Registro Aspirantes - AICOLD</title>
+<head>
 
-        <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/landing.css">
+    <meta charset="UTF-8">
 
-        <style>
-            .aec-wrapper {
-                display: flex;
-                min-height: 100vh;
-            }
+    <title>Registro Aspirantes - AICOLD</title>
 
-            .aec-left {
-                flex: 1.2;
-                display: flex;
-            }
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
-            .aec-left .wf-hero {
-                width: 100%;
-                height: 100%;
-            }
+    <!-- LANDING -->
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/landing.css">
 
-            .aec-right {
-                flex: 0.8;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #f7f7f7;
-            }
+    <!-- LOGIN / REGISTER CSS -->
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/login.css">
 
-            .aec-form {
-                width: 350px;
-            }
+</head>
 
-            .aec-form input {
-                width: 100%;
-                margin-bottom: 10px;
-                padding: 10px;
-                border-radius: 6px;
-                border: 1px solid #ccc;
-            }
+<body>
 
-            .aec-form button {
-                width: 100%;
-                padding: 12px;
-                background: #2e7d32;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                cursor: pointer;
-            }
+<div class="canvas-area">
 
-            .aec-msg {
-                background: #dff0d8;
-                padding: 10px;
-                margin-bottom: 10px;
-                border-radius: 6px;
-            }
-        </style>
-    </head>
+<div class="device-frame desktop">
 
-    <body>
+<div class="microsite">
 
-        <div class="canvas-area">
-        <div class="device-frame desktop">
-        <div class="microsite">
+<!-- =========================================
+REGISTER LAYOUT
+========================================= -->
 
-        <!-- HEADER -->
-        <nav class="wf-nav">
-            <div class="logo-area">
-                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/3.png" style="width:180px;">
-            </div>
-            <div class="logo-area">
-                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/5.png" style="width:150px;">
-            </div>
-            <div class="logo-area">
-                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/1.png" style="width:180px;">
-            </div>
-        </nav>
+<section class="aec-login-wrapper">
 
-        <!-- CONTENIDO -->
-        <section class="aec-wrapper">
+    <!-- =========================================
+    LEFT HERO
+    ========================================= -->
 
-            <!-- IZQUIERDA -->
-            <div class="aec-left">
-                <section class="wf-hero">
-                    <div class="hero-pattern"></div>
-                    <div class="hero-content">
-                        <h1 class="hero-title">
-                            Saberes ancestrales<br>para una <em>economía</em><br>más circular
-                        </h1>
-                        <p class="hero-desc">
-                            Plataforma para la caracterización de organizaciones comunitarias.
-                        </p>
-                    </div>
-                </section>
+    <div class="aec-login-left">
+
+        <section class="wf-hero">
+
+            <!-- VIDEO -->
+
+            <div class="hero-video-container">
+
+                <iframe
+                    class="hero-youtube-video"
+                    src="https://www.youtube.com/embed/M9v9JYVS3Mc?autoplay=1&mute=1&controls=0&loop=1&playlist=M9v9JYVS3Mc&playsinline=1&modestbranding=1&rel=0"
+                    frameborder="0"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen>
+                </iframe>
+
             </div>
 
-            <!-- DERECHA -->
-            <div class="aec-right">
-                <div class="aec-form">
+            <!-- OVERLAY -->
 
-                    <h2>Registro de Aspirante</h2>
+            <div class="hero-overlay"></div>
 
-                    <?php if($mensaje): ?>
-                        <div class="aec-msg"><?php echo $mensaje; ?></div>
-                    <?php endif; ?>
+            <div class="hero-pattern"></div>
 
-                    <form method="POST">
+            <div class="hero-circles"></div>
 
-                        <input type="text" name="nombre" placeholder="Nombres y apellidos" required>
-                        <input type="text" name="documento" placeholder="Número de documento" required>
-                        <input type="date" name="fecha_nacimiento" required>
-                        <input type="text" name="departamento" placeholder="Departamento">
-                        <input type="text" name="municipio" placeholder="Municipio">
-                        <input type="text" name="vereda" placeholder="Vereda">
-                        <input type="text" name="whatsapp" placeholder="WhatsApp">
-                        <input type="email" name="email" placeholder="Correo electrónico" required>
+            <!-- CONTENT -->
 
-                        <label style="font-size:12px;">
-                            <input type="checkbox" required> Acepto términos y condiciones
-                        </label>
+            <div class="hero-content">
 
-                        <button type="submit">Registrarme</button>
+                <div class="hero-eyebrow">
 
-                    </form>
+                    <div class="dot"></div>
+
+                    <span>
+                        Micrositio AICOLD · Registro Delegados
+                    </span>
 
                 </div>
+
+                <h1 class="hero-title">
+                    Saberes ancestrales<br>
+                    para una <em>economía</em><br>
+                    más circular
+                </h1>
+
+                <p class="hero-desc">
+                    Plataforma para la caracterización de organizaciones comunitarias afrocolombianas, indígenas, raizales y palenqueras que desarrollan emprendimientos en economía circular, gestión de residuos y negocios verdes.
+                </p>
+
+                <div class="hero-ctas">
+
+                    <button class="cta-secondary">
+
+                        <svg width="16" height="16" viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2">
+
+                            <circle cx="12" cy="12" r="10"/>
+
+                            <path d="M12 8v4M12 16h.01"/>
+
+                        </svg>
+
+                        Registro de aspirantes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- STATS -->
+
+            <div class="hero-stats">
+
+                <div class="stat-card">
+
+                    <span class="num">28</span>
+
+                    <span class="lbl">Departamentos</span>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <span class="num">4</span>
+
+                    <span class="lbl">Pueblos étnicos</span>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <span class="num">187</span>
+
+                    <span class="lbl">Iniciativas verdes</span>
+
+                </div>
+
             </div>
 
         </section>
 
-        </div>
-        </div>
+    </div>
+
+    <!-- =========================================
+    RIGHT FORM
+    ========================================= -->
+
+    <div class="aec-login-right">
+
+        <!-- LOGOS -->
+
+        <div class="aec-login-brand">
+
+            <div class="logo-area">
+
+                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/3.png">
+
+            </div>
+
+            <div class="logo-area">
+
+                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/5.png">
+
+            </div>
+
+            <div class="logo-area">
+
+                <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/1.png">
+
+            </div>
+
         </div>
 
-    </body>
+        <!-- FORM -->
+
+        <div class="aec-login">
+
+            <h2>Registro Delegados</h2>
+
+            <p>
+                Completa el formulario para solicitar acceso al micrositio AICOLD.
+            </p>
+
+            <?php if($mensaje): ?>
+
+                <div class="aec-msg">
+
+                    <?php echo $mensaje; ?>
+
+                </div>
+
+            <?php endif; ?>
+
+            <form method="POST">
+
+                <label>Nombres y apellidos</label>
+                <input type="text" name="nombre" required>
+
+                <label>Número de documento</label>
+                <input type="text" name="documento" required>
+
+                <label>Fecha nacimiento</label>
+                <input type="date" name="fecha_nacimiento" required>
+
+                <label>Departamento</label>
+                <input type="text" name="departamento">
+
+                <label>Municipio</label>
+                <input type="text" name="municipio">
+
+                <label>Vereda</label>
+                <input type="text" name="vereda">
+
+                <label>WhatsApp</label>
+                <input type="text" name="whatsapp">
+
+                <label>Correo electrónico</label>
+                <input type="email" name="email" required>
+
+                <label style="font-size:13px; margin-bottom:20px; display:flex; gap:10px; align-items:flex-start;">
+
+                    <input type="checkbox" required style="width:auto; margin-top:4px;">
+
+                    <span>
+                        Acepto términos y condiciones
+                    </span>
+
+                </label>
+
+                <button type="submit">
+
+                    Registrarme
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+</div>
+</div>
+
+</body>
 </html>

@@ -97,25 +97,78 @@
                                 </a>
                             </div>
                         </div>
-                    
+
+                                                
+                        <?php
+
+                            global $wpdb;
+
+                            /* TABLA REAL */
+                            $tabla = 'aicold_organizaciones';
+
+                            /* TOTAL ORGANIZACIONES */
+                            $total_organizaciones = $wpdb->get_var("
+                                SELECT COUNT(*) 
+                                FROM $tabla
+                            ");
+
+                            /* TOTAL DEPARTAMENTOS */
+                            $total_departamentos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT departamento)
+                                FROM $tabla
+                                WHERE departamento IS NOT NULL
+                                AND departamento != ''
+                            ");
+
+                            /* TOTAL PUEBLOS ÉTNICOS */
+                            $total_pueblos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT enfoque)
+                                FROM $tabla
+                                WHERE enfoque IS NOT NULL
+                                AND enfoque != ''
+                            ");
+
+                            /* TOTAL INICIATIVAS */
+                            $total_iniciativas = $wpdb->get_var("
+                                SELECT COUNT(nombre_emprendimiento)
+                                FROM $tabla
+                                WHERE nombre_emprendimiento IS NOT NULL
+                                AND nombre_emprendimiento != ''
+                            ");
+
+                        ?>                       
+ 
                         <div class="hero-stats">
+
                             <div class="stat-card">
-                                <span class="num">342</span>
+                                <span class="num">
+                                    <?php echo number_format($total_organizaciones); ?>
+                                </span>
                                 <span class="lbl">Organizaciones</span>
                             </div>
+
                             <div class="stat-card">
-                                <span class="num">28</span>
+                                <span class="num">
+                                    <?php echo number_format($total_departamentos); ?>
+                                </span>
                                 <span class="lbl">Departamentos</span>
                             </div>
+
                             <div class="stat-card">
-                                <span class="num">4</span>
+                                <span class="num">
+                                    <?php echo number_format($total_pueblos); ?>
+                                </span>
                                 <span class="lbl">Pueblos étnicos</span>
                             </div>
+
                             <div class="stat-card">
-                                <span class="num">187</span>
+                                <span class="num">
+                                    <?php echo number_format($total_iniciativas); ?>
+                                </span>
                                 <span class="lbl">Iniciativas verdes</span>
                             </div>
-                        </div>
+                            
+                        </div>                      
                     </section>
 
                 </div>            

@@ -1,0 +1,794 @@
+/* =========================================
+RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+
+    font-family: 'DM Sans', sans-serif;
+
+    background: #f5efe3;
+}
+
+/* =========================================
+MAIN CONTAINERS
+========================================= */
+
+.canvas-area,
+.device-frame,
+.microsite {
+
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+.device-frame.desktop {
+
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* =========================================
+FULLSCREEN LAYOUT
+========================================= */
+
+.aec-login-wrapper {
+
+    display: grid;
+
+    grid-template-columns: .78fr 1.02fr;
+
+    width: 100%;
+
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+/* =========================================
+LEFT SIDE HERO
+========================================= */
+
+.aec-login-left {
+
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 100vh;
+}
+
+/* HERO */
+
+.aec-login-left .wf-hero {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 45px 50px;
+
+    gap: 24px;
+
+    overflow: hidden;
+}
+
+/* =========================================
+VIDEO
+========================================= */
+
+.aec-login-left .hero-video-container {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+.aec-login-left .hero-youtube-video {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 100vw;
+    height: 56.25vw;
+
+    min-width: 177.77vh;
+    min-height: 100vh;
+
+    border: none;
+
+    pointer-events: none;
+}
+
+/* =========================================
+OVERLAY
+========================================= */
+
+.aec-login-left .hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(135deg,
+            rgba(5, 10, 5, .86),
+            rgba(20, 40, 12, .74),
+            rgba(0, 0, 0, .62));
+
+    z-index: 1;
+}
+
+/* =========================================
+HERO CONTENT
+========================================= */
+
+.aec-login-left .hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 620px;
+}
+
+/* EYEBROW */
+
+.hero-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+    color: rgba(255, 255, 255, .9);
+
+    font-size: 14px;
+}
+
+.hero-eyebrow .dot {
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #9FE870;
+}
+
+/* TITLE */
+
+.hero-title {
+
+    font-family: 'Fraunces', serif;
+
+    font-size: 54px;
+
+    line-height: 1.02;
+
+    color: #fff;
+
+    margin: 0 0 24px;
+}
+
+.hero-title em {
+
+    font-style: italic;
+
+    color: #B7FF8A;
+}
+
+/* DESCRIPTION */
+
+.hero-desc {
+
+    font-size: 15px;
+
+    line-height: 1.65;
+
+    color: rgba(255, 255, 255, .86);
+
+    max-width: 560px;
+
+    margin-bottom: 26px;
+}
+
+/* =========================================
+CTA BUTTON
+========================================= */
+
+.hero-ctas {
+
+    display: flex;
+}
+
+.cta-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    height: 52px;
+
+    padding: 0 24px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(255, 255, 255, .14);
+
+    background: rgba(255, 255, 255, .12);
+
+    backdrop-filter: blur(12px);
+
+    color: #fff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.cta-secondary:hover {
+
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, .18);
+}
+
+/* =========================================
+HERO STATS
+========================================= */
+
+.hero-stats {
+
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: stretch;
+
+    gap: 12px;
+
+    width: 100%;
+
+    max-width: 620px;
+
+    flex-wrap: nowrap;
+
+    margin-top: 8px;
+}
+
+.hero-stats .stat-card {
+
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 18px 14px;
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+
+    background: rgba(0, 0, 0, .34);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.hero-stats .num {
+
+    display: block;
+
+    font-size: 26px;
+
+    font-weight: 800;
+
+    color: #fff;
+
+    margin-bottom: 6px;
+}
+
+.hero-stats .lbl {
+
+    font-size: 12px;
+
+    color: rgba(255, 255, 255, .82);
+
+    line-height: 1.4;
+}
+
+/* =========================================
+RIGHT LOGIN PANEL
+========================================= */
+
+.aec-login-right {
+
+    position: relative;
+
+    background:
+        linear-gradient(180deg,
+            #faf6ef,
+            #f5efe3);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 24px 36px;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    z-index: 10;
+}
+
+/* =========================================
+BRAND LOGOS
+========================================= */
+
+.aec-login-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-bottom: 18px;
+
+    width: 100%;
+
+    flex-wrap: nowrap;
+}
+
+.aec-login-brand .logo-area {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+/* separators */
+
+.aec-login-brand .logo-area:not(:last-child)::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: -10px;
+
+    width: 1px;
+
+    height: 42px;
+
+    background: rgba(0, 0, 0, .12);
+}
+
+/* sizes */
+
+.aec-login-brand img {
+
+    height: auto;
+
+    object-fit: contain;
+
+    max-width: 95px !important;
+}
+
+/* =========================================
+LOGIN CARD
+========================================= */
+
+.aec-login {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    background: rgba(255, 255, 255, .94);
+
+    border-radius: 28px;
+
+    padding: 28px 28px;
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .08);
+
+    backdrop-filter: blur(12px);
+}
+
+/* =========================================
+TITLE
+========================================= */
+
+.aec-login h2 {
+
+    font-family: 'Fraunces', serif;
+
+    font-size: 38px;
+
+    margin: 0 0 20px;
+
+    color: #2D5016;
+}
+
+/* =========================================
+LABELS
+========================================= */
+
+.aec-login label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #3D2E1E;
+}
+
+/* =========================================
+REGISTER GRID
+========================================= */
+
+.aec-register-form {
+
+    width: 100%;
+}
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+/* =========================================
+INPUTS
+========================================= */
+
+.aec-login input {
+
+    width: 100%;
+
+    height: 46px;
+
+    border-radius: 14px;
+
+    border: 1px solid #ddd5ca;
+
+    padding: 0 16px;
+
+    margin-bottom: 0;
+
+    font-size: 14px;
+
+    background: rgba(255, 255, 255, .96);
+
+    transition: .3s;
+}
+
+.aec-login input:focus {
+
+    outline: none;
+
+    border-color: #4A7C23;
+
+    box-shadow:
+        0 0 0 4px rgba(74, 124, 35, .10);
+}
+
+/* =========================================
+TERMS
+========================================= */
+
+.terms-check {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+    margin-bottom: 18px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #5f5246;
+}
+
+.terms-check input {
+
+    width: auto;
+
+    height: auto;
+
+    margin-top: 3px;
+}
+
+/* =========================================
+BUTTON
+========================================= */
+
+.aec-login button {
+
+    width: 100%;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(135deg,
+            #2D5016,
+            #3f731f);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    margin-top: 8px;
+
+    box-shadow:
+        0 12px 24px rgba(45, 80, 22, .24);
+}
+
+.aec-login button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 30px rgba(45, 80, 22, .28);
+}
+
+/* =========================================
+TABLET
+========================================= */
+
+@media screen and (max-width: 1024px) {
+
+    html,
+    body {
+
+        width: 100%;
+
+        overflow-x: hidden;
+    }
+
+    .aec-login-left {
+
+        display: none !important;
+    }
+
+    .aec-login-wrapper {
+
+        display: flex;
+
+        width: 100%;
+
+        min-height: 100vh;
+    }
+
+    .aec-login-right {
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 40px 24px;
+    }
+
+    .aec-login-brand {
+
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 16px;
+
+        flex-wrap: wrap;
+
+        margin-bottom: 24px;
+    }
+
+    .aec-login-brand .logo-area::after {
+
+        display: none;
+    }
+
+    .aec-login-brand img {
+
+        max-width: 90px !important;
+    }
+
+    .aec-login {
+
+        width: 100%;
+
+        max-width: 680px;
+
+        padding: 32px 24px;
+
+        border-radius: 24px;
+    }
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media screen and (max-width: 768px) {
+
+    .aec-login-right {
+
+        padding: 26px 16px;
+    }
+
+    .aec-login-brand {
+
+        gap: 12px;
+
+        margin-bottom: 20px;
+    }
+
+    .aec-login-brand img {
+
+        max-width: 78px !important;
+    }
+
+    .aec-login {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        padding: 28px 18px;
+
+        border-radius: 22px;
+    }
+
+    .aec-login h2 {
+
+        font-size: 32px;
+
+        text-align: center;
+    }
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .aec-login input {
+
+        height: 48px;
+
+        font-size: 15px;
+    }
+
+    .aec-login button {
+
+        height: 50px;
+
+        font-size: 15px;
+    }
+}
+
+/* =========================================
+SMALL MOBILE
+========================================= */
+
+@media screen and (max-width: 480px) {
+
+    .aec-login-right {
+
+        padding: 18px 12px;
+    }
+
+    .aec-login {
+
+        padding: 22px 16px;
+    }
+
+    .aec-login h2 {
+
+        font-size: 28px;
+    }
+
+    .aec-login-brand img {
+
+        max-width: 68px !important;
+    }
+}

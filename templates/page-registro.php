@@ -43,7 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/landing.css">
 
     <!-- LOGIN / REGISTER CSS -->
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/login.css">
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/css/registro.css">
+
+
+   
 
 </head>
 
@@ -206,8 +209,7 @@ REGISTER LAYOUT
 
         <div class="aec-login">
 
-            <h2>Registro Delegados</h2>
-
+            <h2>Registro Delegados</h2> 
             <p>
                 Completa el formulario para solicitar acceso al micrositio AICOLD.
             </p>
@@ -221,36 +223,57 @@ REGISTER LAYOUT
                 </div>
 
             <?php endif; ?>
+            <br>
 
-            <form method="POST">
+            <form method="POST" class="aec-register-form">
 
-                <label>Nombres y apellidos</label>
-                <input type="text" name="nombre" required>
+                <div class="form-grid">
 
-                <label>Número de documento</label>
-                <input type="text" name="documento" required>
+                    <div class="form-group">
+                        <label>Nombres y apellidos</label>
+                        <input type="text" name="nombre" required>
+                    </div>
 
-                <label>Fecha nacimiento</label>
-                <input type="date" name="fecha_nacimiento" required>
+                    <div class="form-group">
+                        <label>Número de documento</label>
+                        <input type="text" name="documento" required>
+                    </div>
 
-                <label>Departamento</label>
-                <input type="text" name="departamento">
+                    <div class="form-group">
+                        <label>Fecha nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" required>
+                    </div>
 
-                <label>Municipio</label>
-                <input type="text" name="municipio">
+                    <div class="form-group">
+                        <label>Departamento asignado</label>
+                        <input type="text" name="departamento">
+                    </div>
 
-                <label>Vereda</label>
-                <input type="text" name="vereda">
+                    <div class="form-group">
+                        <label>Municipio asignado</label>
+                        <input type="text" name="municipio">
+                    </div>
 
-                <label>WhatsApp</label>
-                <input type="text" name="whatsapp">
+                    <div class="form-group">
+                        <label>Vereda asignada</label>
+                        <input type="text" name="vereda">
+                    </div>
 
-                <label>Correo electrónico</label>
-                <input type="email" name="email" required>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="text" name="whatsapp">
+                    </div>
 
-                <label style="font-size:13px; margin-bottom:20px; display:flex; gap:10px; align-items:flex-start;">
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" name="email" required>
+                    </div>
 
-                    <input type="checkbox" required style="width:auto; margin-top:4px;">
+                </div>
+
+                <label class="terms-check">
+
+                    <input type="checkbox" required>
 
                     <span>
                         Acepto términos y condiciones

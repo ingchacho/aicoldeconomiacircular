@@ -91,7 +91,7 @@
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
                                     Iniciar sesión
                                 </a>
-                                <a href="<?php echo home_url('/registro'); ?>" class="cta-secondary stat-card" style="display: inline-block;text-decoration: none;" target="_blank">
+                                <a href="<?php echo home_url('/registro'); ?>" class="cta-secondary stat-card" style="display: inline-block;text-decoration: none;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>                                    
                                     Solicitar registro
                                 </a>

@@ -1,3 +1,42 @@
+ <?php
+
+                            global $wpdb;
+
+                            /* TABLA REAL */
+                            $tabla = 'aicold_organizaciones';
+
+                            /* TOTAL ORGANIZACIONES */
+                            $total_organizaciones = $wpdb->get_var("
+                                SELECT COUNT(*) 
+                                FROM $tabla
+                            ");
+
+                            /* TOTAL DEPARTAMENTOS */
+                            $total_departamentos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT departamento)
+                                FROM $tabla
+                                WHERE departamento IS NOT NULL
+                                AND departamento != ''
+                            ");
+
+                            /* TOTAL PUEBLOS ÉTNICOS */
+                            $total_pueblos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT enfoque)
+                                FROM $tabla
+                                WHERE enfoque IS NOT NULL
+                                AND enfoque != ''
+                            ");
+
+                            /* TOTAL INICIATIVAS */
+                            $total_iniciativas = $wpdb->get_var("
+                                SELECT COUNT(nombre_emprendimiento)
+                                FROM $tabla
+                                WHERE nombre_emprendimiento IS NOT NULL
+                                AND nombre_emprendimiento != ''
+                            ");
+
+                        ?>               
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -49,13 +88,13 @@
                                         Plataforma para la caracterización de organizaciones comunitarias afrocolombianas, indígenas, raizales y palenqueras que desarrollan emprendimientos en economía circular, gestión de residuos y negocios verdes.
                                     </p>
                                     <div class="hero-ctas">
-                                        <button class="cta-secondary">
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                                            Registro de aspirantes
-                                        </button>
+                                        <a href="<?php echo home_url('/registro'); ?>" class="cta-secondary stat-card" style="display: inline-block;text-decoration: none;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>                                    
+                                            Solicitar registro
+                                        </a>
                                     </div>
                                 </div>
-                               <div class="hero-stats">
+                               <!-- <div class="hero-stats">
                                     <div class="stat-card">
                                         <span class="num">28</span>
                                         <span class="lbl">Departamentos</span>
@@ -70,8 +109,48 @@
                                         <span class="num">187</span>
                                         <span class="lbl">Iniciativas verdes</span>
                                     </div>
+                                </div> -->
+
+                                <div class="hero-stats">
+
+                                    <div class="stat-card">
+                                        <span class="num">
+                                            <?php echo number_format($total_organizaciones); ?>
+                                        </span>
+                                        <span class="lbl">
+                                            Organizaciones
+                                        </span>
+                                    </div>
+
+                                    <div class="stat-card">
+                                        <span class="num">
+                                            <?php echo number_format($total_departamentos); ?>
+                                        </span>
+                                        <span class="lbl">
+                                            Departamentos
+                                        </span>
+                                    </div>
+
+                                    <div class="stat-card">
+                                        <span class="num">
+                                            <?php echo number_format($total_pueblos); ?>
+                                        </span>
+                                        <span class="lbl">
+                                            Pueblos étnicos
+                                        </span>
+                                    </div>
+
+                                    <div class="stat-card">
+                                        <span class="num">
+                                            <?php echo number_format($total_iniciativas); ?>
+                                        </span>
+                                        <span class="lbl">
+                                            Iniciativas verdes
+                                        </span>
+                                    </div>
 
                                 </div>
+
                             </section>                            
                         </div>
 
@@ -88,6 +167,13 @@
                                     <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/img/1.png" alt="Logo 1" style="width:180px;">
                                 </div>                                                
                             </div>
+
+
+                            <a href="<?php echo home_url('/landing'); ?>" class="aec-back-home">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                Volver al inicio
+                            </a>
+
 
                             <div class="aec-login">
                                 <h2>Iniciar Sesión</h2>

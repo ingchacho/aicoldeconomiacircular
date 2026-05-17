@@ -792,3 +792,62 @@ SMALL MOBILE
         max-width: 68px !important;
     }
 }
+
+
+/* =========================================
+BACK HOME BUTTON PREMIUM
+========================================= */
+
+.aec-back-home {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 18px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, .75);
+
+    border: 1px solid rgba(0, 0, 0, .06);
+
+    backdrop-filter: blur(10px);
+
+    text-decoration: none;
+
+    color: #2D5016;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+    transition: .3s ease;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .05);
+}
+
+.aec-back-home:hover {
+
+    transform: translateY(-2px);
+
+    background: #fff;
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, .08);
+}
+
+.aec-back-home svg {
+
+    transition: .3s ease;
+}
+
+.aec-back-home:hover svg {
+
+    transform: translateX(-4px);
+}

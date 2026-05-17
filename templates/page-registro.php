@@ -27,6 +27,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
+
+ <?php
+                            // global $wpdb;
+
+                            /* TABLA REAL */
+                            $tabla = 'aicold_organizaciones';
+
+                            /* TOTAL ORGANIZACIONES */
+                            $total_organizaciones = $wpdb->get_var("
+                                SELECT COUNT(*) 
+                                FROM $tabla
+                            ");
+
+                            /* TOTAL DEPARTAMENTOS */
+                            $total_departamentos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT departamento)
+                                FROM $tabla
+                                WHERE departamento IS NOT NULL
+                                AND departamento != ''
+                            ");
+
+                            /* TOTAL PUEBLOS ÉTNICOS */
+                            $total_pueblos = $wpdb->get_var("
+                                SELECT COUNT(DISTINCT enfoque)
+                                FROM $tabla
+                                WHERE enfoque IS NOT NULL
+                                AND enfoque != ''
+                            ");
+
+                            /* TOTAL INICIATIVAS */
+                            $total_iniciativas = $wpdb->get_var("
+                                SELECT COUNT(nombre_emprendimiento)
+                                FROM $tabla
+                                WHERE nombre_emprendimiento IS NOT NULL
+                                AND nombre_emprendimiento != ''
+                            ");
+
+?>               
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -120,22 +160,10 @@ REGISTER LAYOUT
 
                 <div class="hero-ctas">
 
-                    <button class="cta-secondary">
-
-                        <svg width="16" height="16" viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2">
-
-                            <circle cx="12" cy="12" r="10"/>
-
-                            <path d="M12 8v4M12 16h.01"/>
-
-                        </svg>
-
-                        Registro de aspirantes
-
-                    </button>
+                    <a class="cta-primary" href="<?php echo site_url('/login'); ?>" class="mobile-login-btn" style="text-decoration: none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                        Iniciar sesión
+                    </a>
 
                 </div>
 
@@ -146,27 +174,39 @@ REGISTER LAYOUT
             <div class="hero-stats">
 
                 <div class="stat-card">
-
-                    <span class="num">28</span>
-
-                    <span class="lbl">Departamentos</span>
-
+                    <span class="num">
+                        <?php echo number_format($total_organizaciones); ?>
+                    </span>
+                    <span class="lbl">
+                        Organizaciones
+                    </span>
                 </div>
 
                 <div class="stat-card">
-
-                    <span class="num">4</span>
-
-                    <span class="lbl">Pueblos étnicos</span>
-
+                    <span class="num">
+                        <?php echo number_format($total_departamentos); ?>
+                    </span>
+                    <span class="lbl">
+                        Departamentos
+                    </span>
                 </div>
 
                 <div class="stat-card">
+                    <span class="num">
+                        <?php echo number_format($total_pueblos); ?>
+                    </span>
+                    <span class="lbl">
+                        Pueblos étnicos
+                    </span>
+                </div>
 
-                    <span class="num">187</span>
-
-                    <span class="lbl">Iniciativas verdes</span>
-
+                <div class="stat-card">
+                    <span class="num">
+                        <?php echo number_format($total_iniciativas); ?>
+                    </span>
+                    <span class="lbl">
+                        Iniciativas verdes
+                    </span>
                 </div>
 
             </div>
@@ -206,6 +246,11 @@ REGISTER LAYOUT
         </div>
 
         <!-- FORM -->
+
+        <a href="<?php echo home_url('/landing'); ?>" class="aec-back-home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            Volver al inicio
+        </a>    
 
         <div class="aec-login">
 
